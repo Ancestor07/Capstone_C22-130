@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ngawasi/common/utils.dart';
 import 'package:ngawasi/presentation/pages/home.dart';
 import 'package:ngawasi/styles/colors.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         primaryColor: kCreamyOrange,
         scaffoldBackgroundColor: kSoftWhite,
         textTheme: kTextTheme,
+        appBarTheme: const AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle.light,
+        ),
       ),
       navigatorObservers: [routeObserver],
       home: const HomePage(),

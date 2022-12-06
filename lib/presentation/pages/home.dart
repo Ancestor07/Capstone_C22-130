@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ngawasi/presentation/pages/getstarted/get_started_1.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,9 +10,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Ngawasi'),
       ),
-      body: const Center(
-        child: Text('Halo'),
-      ),
+      body: const GetStarted1(),
     );
   }
 }

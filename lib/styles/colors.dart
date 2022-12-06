@@ -9,17 +9,17 @@ const Color kDeepBlue = Color(0xFF200440);
 const Color kGrey = Color(0xFFF6F6E8);
 
 const kColorScheme = ColorScheme(
-  primary: kCreamyOrange,
-  primaryContainer: kCreamyOrange,
+  primary: kRipeOrange,
+  primaryContainer: kRipeOrange,
   secondary: kDeepBlue,
   secondaryContainer: kDeepBlue,
-  surface: kRipeOrange,
-  background: kRipeOrange,
+  surface: kCreamyOrange,
+  background: kCreamyOrange,
   error: Colors.red,
-  onPrimary: kRipeOrange,
+  onPrimary: kSoftWhite,
   onSecondary: kSoftWhite,
   onSurface: kSoftWhite,
   onBackground: kGrey,
   onError: kGrey,
-  brightness: Brightness.dark,
+  brightness: Brightness.light,
 );
