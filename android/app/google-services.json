@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "927828026720",
+    "project_id": "ngawasi-45705",
+    "storage_bucket": "ngawasi-45705.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927828026720:android:ce4f609acb1d9d2a3cea05",
+        "android_client_info": {
+          "package_name": "com.example.ngawasi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927828026720-t7595nloopsklcq5hn3as3e62ji52md1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvlFKQ8F93wLxFMKkW3GVYR3VCxArAsck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927828026720-t7595nloopsklcq5hn3as3e62ji52md1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
