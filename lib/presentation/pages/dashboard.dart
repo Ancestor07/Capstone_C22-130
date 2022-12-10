@@ -16,7 +16,12 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  User? user = FirebaseAuth.instance.currentUser;
+  FirebaseService service = FirebaseService();
+  // User? user = FirebaseAuth.instance.authStateChanges().listen((User? user) {
+  //   if (user != null) {
+
+  //   }
+  //  });
 
   @override
   void initState() {
@@ -28,41 +33,56 @@ class _DashboardState extends State<Dashboard> {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.light.copyWith(statusBarColor: kCreamyOrange),
     );
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Dashboard'),
-          elevation: 0.5,
-          centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.white,
+    return StreamBuilder(
+      stream: service.onAuthStateChanged,
+      builder: (context, AsyncSnapshot<User?> snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Dashboard'),
+              elevation: 0.5,
+              centerTitle: true,
+              actions: <Widget>[
+                IconButton(
+                  icon: const Icon(
+                    Icons.logout,
+                    color: Colors.white,
+                  ),
+                  onPressed: () async {
+                    FirebaseService service = FirebaseService();
+                    await service.signOutFromGoogle();
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      Login.routeName,
+                      (Route<dynamic> route) => false,
+                    );
+                  },
+                )
+              ],
+            ),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Center(
+                    child: Text('Halo'),
+                  ),
+                  // Text(snapshot.data!.email!),
+                  // Text(snapshot.data!.displayName!),
+                  // CircleAvatar(
+                  //   backgroundImage: NetworkImage(user!.photoURL!),
+                  //   radius: 20,
+                  // )
+                ],
               ),
-              onPressed: () async {
-                FirebaseService service = FirebaseService();
-                await service.signOutFromGoogle();
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  Login.routeName,
-                  (Route<dynamic> route) => false,
-                );
-              },
-            )
-          ],
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(user!.email!),
-              Text(user!.displayName!),
-              CircleAvatar(
-                backgroundImage: NetworkImage(user!.photoURL!),
-                radius: 20,
-              )
-            ],
-          ),
-        ));
+            ),
+          );
+        } else {
+          return const Center(
+            child: Text('Error'),
+          );
+        }
+      },
+    );
   }
 }
