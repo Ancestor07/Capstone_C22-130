@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ngawasi/presentation/pages/anak_list.dart';
 import 'package:ngawasi/presentation/pages/entry/login.dart';
+import 'package:ngawasi/presentation/pages/profile/profile.dart';
 import 'package:ngawasi/presentation/widgets/card_const_anak.dart';
 import 'package:ngawasi/services/firebase_service.dart';
 import 'package:ngawasi/styles/colors.dart';
@@ -43,9 +44,21 @@ class _DashboardState extends State<Dashboard> {
           if (snapshot.hasData) {
             return Scaffold(
               appBar: AppBar(
-                title: const Text('Ngawasi'),
+                title: const Text('Satukan'),
                 elevation: 0.5,
                 actions: <Widget>[
+                  IconButton(
+                    icon: const Icon(
+                      Icons.person,
+                      color: Colors.white,
+                    ),
+                    onPressed: () async {
+                      Navigator.pushNamed(
+                        context,
+                        ProfilePage.routeName,
+                      );
+                    },
+                  ),
                   IconButton(
                     icon: const Icon(
                       Icons.logout,

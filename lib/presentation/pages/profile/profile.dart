@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:ngawasi/styles/colors.dart';
+import 'package:ngawasi/styles/text_styles.dart';
 
 class ProfilePage extends StatefulWidget {
   static const routeName = '/profile_page';
@@ -10,44 +14,60 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final firebaseUser = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.light.copyWith(statusBarColor: kDeepBlue),
+    );
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_balance),
-            onPressed: () {},
-          ),
-        ],
+        title: const Text('Profil'),
+        elevation: 0.5,
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.account_balance),
+        //     onPressed: () {},
+        //   ),
+        // ],
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
           const SizedBox(height: 24),
-          buildName(),
-          const SizedBox(height: 24),
-          const SizedBox(height: 48),
-          buildAbout(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: buildName(),
+          ),
+          // const SizedBox(height: 24),
+          // const SizedBox(height: 48),
+          // buildAbout(),
         ],
       ),
     );
   }
 
   Widget buildName() => Column(
-        children: const [
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Text(
+          //   'name :',
+          //   style: kTextTheme.subtitle1,
+          // ),
+          // Text(
+          //   firebaseUser!.displayName!,
+          //   style: kTextTheme.headline6,
+          // ),
+          // SizedBox(height: 15),
           Text(
-            'name',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            'email :',
+            style: kTextTheme.subtitle1,
           ),
-          SizedBox(height: 4),
           Text(
-            'email',
-            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-          )
+            firebaseUser!.email!,
+            style: kTextTheme.headline6,
+          ),
         ],
       );
 
@@ -55,16 +75,16 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: const EdgeInsets.symmetric(horizontal: 48),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
+          children: const [
+            Text(
               'About',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
             // ignore: prefer_const_constructors
             Text(
               'about',
-              style: const TextStyle(fontSize: 16, height: 1.4),
+              style: TextStyle(fontSize: 16, height: 1.4),
             ),
           ],
         ),
