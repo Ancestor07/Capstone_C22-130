@@ -30,6 +30,6 @@ final kTextTheme = TextTheme(
   overline: GoogleFonts.openSans(
       fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
 ).apply(
-  bodyColor: kDeepBlue,
-  displayColor: kRipeOrange,
+  bodyColor: kRichBlack,
+  displayColor: kDeepBlue,
 );

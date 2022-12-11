@@ -29,9 +29,10 @@ class FirebaseService with ChangeNotifier {
     }
   }
 
-  Future signOutFromGoogle() async {
+  Future<bool> signOutFromGoogle() async {
     await _googleSignIn.signOut();
     await _auth.signOut();
+    return true;
   }
 
   Future<String?> signInWithEmailAndPassword(

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:ngawasi/presentation/pages/entry/login.dart';
 import 'package:ngawasi/services/firebase_service.dart';
 import 'package:ngawasi/styles/colors.dart';
+import 'package:ngawasi/styles/text_styles.dart';
 
 class Dashboard extends StatefulWidget {
   static const routeName = '/dashboard';
@@ -17,11 +18,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   FirebaseService service = FirebaseService();
-  // User? user = FirebaseAuth.instance.authStateChanges().listen((User? user) {
-  //   if (user != null) {
-
-  //   }
-  //  });
+  ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -31,57 +28,94 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle.light.copyWith(statusBarColor: kCreamyOrange),
+      SystemUiOverlayStyle.light.copyWith(statusBarColor: kDeepBlue),
     );
+
     return StreamBuilder(
       stream: service.onAuthStateChanged,
       builder: (context, AsyncSnapshot<User?> snapshot) {
-        if (snapshot.hasData) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Dashboard'),
-              elevation: 0.5,
-              centerTitle: true,
-              actions: <Widget>[
-                IconButton(
-                  icon: const Icon(
-                    Icons.logout,
-                    color: Colors.white,
-                  ),
-                  onPressed: () async {
-                    FirebaseService service = FirebaseService();
-                    await service.signOutFromGoogle();
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      Login.routeName,
-                      (Route<dynamic> route) => false,
-                    );
-                  },
-                )
-              ],
-            ),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Center(
-                    child: Text('Halo'),
-                  ),
-                  // Text(snapshot.data!.email!),
-                  // Text(snapshot.data!.displayName!),
-                  // CircleAvatar(
-                  //   backgroundImage: NetworkImage(user!.photoURL!),
-                  //   radius: 20,
-                  // )
+        if (snapshot.connectionState == ConnectionState.active) {
+          if (snapshot.hasData) {
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Ngawasi'),
+                elevation: 0.5,
+                centerTitle: true,
+                actions: <Widget>[
+                  IconButton(
+                    icon: const Icon(
+                      Icons.logout,
+                      color: Colors.white,
+                    ),
+                    onPressed: () async {
+                      service = FirebaseService();
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        Login.routeName,
+                        (Route<dynamic> route) => false,
+                      );
+                      await service.signOutFromGoogle();
+                    },
+                  )
                 ],
               ),
-            ),
-          );
-        } else {
-          return const Center(
-            child: Text('Error'),
-          );
+              body: SingleChildScrollView(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      color: kCreamyOrange,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 20.0,
+                          left: 15.0,
+                          bottom: 30.0,
+                          right: 15.0,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Halo, ${snapshot.data!.email!}!',
+                              style: kTextTheme.subtitle1,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Semoga harimu baik!',
+                              style: kTextTheme.headline5,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Anak',
+                        style: kTextTheme.bodyMedium,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
         }
+        return const Center(
+          child: Text('Error'),
+        );
       },
     );
   }
