@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, body_might_complete_normally_nullable
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -7,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class FirebaseService with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Stream<User?> get onAuthStateChanged => _auth.authStateChanges();
 
