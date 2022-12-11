@@ -80,8 +80,8 @@ class _GetStartedState extends State<GetStarted> with TickerProviderStateMixin {
         nextFlex: 0,
         back: const Icon(Icons.arrow_back),
         next: const Icon(Icons.arrow_forward),
-        skip: const Text('Skip'),
-        done: const Text('Done'),
+        skip: const Text('Lewati'),
+        done: const Text('Selesai'),
       ),
     );
   }
