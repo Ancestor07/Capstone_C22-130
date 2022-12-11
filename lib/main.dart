@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ngawasi/common/utils.dart';
 import 'package:ngawasi/firebase_options.dart';
+import 'package:ngawasi/presentation/pages/anak_list.dart';
 import 'package:ngawasi/presentation/pages/dashboard.dart';
 import 'package:ngawasi/presentation/pages/entry/login.dart';
 import 'package:ngawasi/presentation/pages/entry/get_started.dart';
@@ -51,6 +52,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const GetStarted());
           case Dashboard.routeName:
             return MaterialPageRoute(builder: (_) => const Dashboard());
+          case AnakList.routeName:
+            return MaterialPageRoute(builder: (_) => const AnakList());
           default:
             return MaterialPageRoute(builder: (_) => const Login());
         }

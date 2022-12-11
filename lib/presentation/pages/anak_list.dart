@@ -1,11 +1,15 @@
+// ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison, library_private_types_in_public_api
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ngawasi/presentation/widgets/card_anak.dart';
 import 'package:ngawasi/presentation/widgets/show_message.dart';
+import 'package:ngawasi/styles/colors.dart';
 
 class AnakList extends StatefulWidget {
+  static const routeName = '/anak-list';
   const AnakList({Key? key}) : super(key: key);
 
   @override
@@ -21,8 +25,11 @@ final TextEditingController _tglController = TextEditingController();
 class _AnakListState extends State<AnakList> {
   @override
   Widget build(BuildContext context) {
-    ;
     return Scaffold(
+        appBar: AppBar(
+          title: const Text('Anak'),
+          elevation: 0.5,
+        ),
         body: StreamBuilder(
           stream: _anak.snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
@@ -86,6 +93,20 @@ class _AnakListState extends State<AnakList> {
                           initialDate: DateTime.now(),
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2222),
+                          builder: (BuildContext context, Widget? child) {
+                            return Theme(
+                              data: ThemeData.light().copyWith(
+                                primaryColor: kCreamyOrange,
+                                colorScheme: const ColorScheme.light(
+                                        primary: kDeepBlue,
+                                        secondary: kRipeOrange)
+                                    .copyWith(
+                                  secondary: kSoftWhite,
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
                         ) as DateTime;
                         if (pickDate != null) {
                           String formattedDate =
