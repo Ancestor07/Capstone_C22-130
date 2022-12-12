@@ -76,17 +76,15 @@ class _DashboardState extends State<Dashboard> {
                   )
                 ],
               ),
-              body: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
+              body: ListView(
+                physics: const PageScrollPhysics(),
                 children: [
                   Container(
                     width: double.infinity,
                     color: kCreamyOrange,
                     child: Padding(
                       padding: const EdgeInsets.only(
-                        top: 20.0,
+                        top: 30.0,
                         left: 15.0,
                         bottom: 30.0,
                         right: 15.0,
@@ -113,55 +111,62 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 15.0, right: 15.0, top: 25.0, bottom: 10.0),
-                    child: Column(
+                      left: 15.0,
+                      right: 15.0,
+                      top: 15.0,
+                      bottom: 0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Anak',
-                          style: kTextTheme.headline6,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Text(
+                            'Anak',
+                            style: kTextTheme.headline6,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              AnakList.routeName,
+                            );
+                          },
+                          alignment: Alignment.centerRight,
+                          icon: const Icon(Icons.manage_accounts),
                         ),
                       ],
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
+                  SizedBox(
                     child: StreamBuilder(
                       stream: _anak.snapshots(),
                       builder: (context,
                           AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                         if (streamSnapshot.hasData) {
-                          return ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: streamSnapshot.data!.docs.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              final DocumentSnapshot documentSnapshot =
-                                  streamSnapshot.data!.docs[index];
-                              return CardConstAnak(
-                                  documentSnapshot: documentSnapshot);
-                            },
+                          return Column(
+                            children: [
+                              ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: streamSnapshot.data!.docs.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  final DocumentSnapshot documentSnapshot =
+                                      streamSnapshot.data!.docs[index];
+                                  return CardConstAnak(
+                                      documentSnapshot: documentSnapshot);
+                                },
+                              ),
+                            ],
                           );
                         }
                         return const Center();
                       },
                     ),
                   ),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(300, 45),
-                        ),
-                        onPressed: () async {
-                          Navigator.pushNamed(
-                            context,
-                            AnakList.routeName,
-                          );
-                        },
-                        child: const Text('Tambah anak'),
-                      ),
-                    ),
+                  const SizedBox(
+                    height: 20.0,
                   ),
                 ],
               ),
