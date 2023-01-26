@@ -9,6 +9,7 @@ import 'package:ngawasi/presentation/pages/dashboard.dart';
 import 'package:ngawasi/presentation/pages/entry/login.dart';
 import 'package:ngawasi/presentation/pages/entry/get_started.dart';
 import 'package:ngawasi/presentation/pages/entry/register.dart';
+import 'package:ngawasi/presentation/pages/maps/google_maps.dart';
 import 'package:ngawasi/presentation/pages/profile/profile.dart';
 import 'package:ngawasi/styles/colors.dart';
 import 'package:ngawasi/styles/text_styles.dart';
@@ -57,6 +58,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const AnakList());
           case ProfilePage.routeName:
             return MaterialPageRoute(builder: (_) => const ProfilePage());
+          case GoogleMaps.routeName:
+            return MaterialPageRoute(builder: (_) => const GoogleMaps());
           default:
             return MaterialPageRoute(builder: (_) => const Login());
         }

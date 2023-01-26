@@ -37,6 +37,28 @@ class FirebaseService with ChangeNotifier {
     return true;
   }
 
+  Future<UserCredential?> signInWithGoogleWebsite() async {
+    try {
+      // Create a new provider
+      GoogleAuthProvider googleProvider = GoogleAuthProvider();
+
+      googleProvider
+          .addScope('https://www.googleapis.com/auth/contacts.readonly');
+      googleProvider.setCustomParameters({'login_hint': 'user@example.com'});
+
+      // Once signed in, return the UserCredential
+      return await _auth.signInWithPopup(googleProvider);
+      // Or use signInWithRedirect
+      // return await FirebaseAuth.instance.signInWithRedirect(googleProvider);
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+      rethrow;
+    } catch (e) {
+      print(e);
+    }
+    return null;
+  }
+
   Future<String?> signInWithEmailAndPassword(
       {required String userEmail, required String userPassword}) async {
     try {
