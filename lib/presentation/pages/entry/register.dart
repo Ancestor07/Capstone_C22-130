@@ -1,13 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ngawasi/presentation/pages/dashboard.dart';
 import 'package:ngawasi/presentation/pages/entry/login.dart';
 import 'package:ngawasi/presentation/widgets/email_text_field.dart';
 import 'package:ngawasi/presentation/widgets/google_sign_in_button.dart';
+import 'package:ngawasi/presentation/widgets/name_text_field.dart';
 import 'package:ngawasi/presentation/widgets/password_text_field.dart';
+import 'package:ngawasi/presentation/widgets/role_dropdown.dart';
 import 'package:ngawasi/services/firebase_service.dart';
 import 'package:ngawasi/styles/colors.dart';
 import 'package:ngawasi/styles/text_styles.dart';
@@ -25,6 +26,7 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController namaController = TextEditingController();
   bool _isLoading = false;
 
   @override
@@ -81,6 +83,17 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
                           Center(
                             child: SizedBox(
                               width: 300.0,
+                              child: NameTextField(
+                                namaController: namaController,
+                              ),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                          ),
+                          Center(
+                            child: SizedBox(
+                              width: 300.0,
                               child: EmailTextField(
                                 emailController: emailController,
                               ),
@@ -96,6 +109,15 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
                                 passwordController: passwordController,
                               ),
                             ),
+                          ),
+                          const Center(
+                            child: SizedBox(
+                              width: 300.0,
+                              child: RoleDropdown(),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 20),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),

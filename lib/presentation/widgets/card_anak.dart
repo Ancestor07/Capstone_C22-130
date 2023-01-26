@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -102,11 +104,9 @@ class _CardAnakState extends State<CardAnak> {
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2222),
                         ) as DateTime;
-                        if (pickDate != null) {
-                          String formattedDate =
-                              DateFormat.yMd().format(pickDate);
-                          _tglController.text = formattedDate;
-                        }
+                        String formattedDate =
+                            DateFormat.yMd().format(pickDate);
+                        _tglController.text = formattedDate;
                       },
                       icon: const Icon(Icons.calendar_month),
                     ),
@@ -142,6 +142,7 @@ class _CardAnakState extends State<CardAnak> {
   Future<void> _delete(String id) async {
     await _anak.doc(id).delete();
 
+    // ignore: use_build_context_synchronously
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('You have successfully deleted a product')));
   }
