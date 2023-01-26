@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:ngawasi/presentation/pages/dashboard.dart';
@@ -18,6 +19,9 @@ class GoogleSignInButton extends StatelessWidget {
       onPressed: () async {
         FirebaseService service = FirebaseService();
         try {
+          if (kIsWeb) {
+            await service.signInWithGoogleWebsite();
+          }
           await service.signInWithGoogle();
           // ignore: use_build_context_synchronously
           Navigator.pushNamedAndRemoveUntil(

@@ -13,6 +13,7 @@ class AnakList extends StatefulWidget {
   const AnakList({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _AnakListState createState() => _AnakListState();
 }
 
@@ -108,11 +109,9 @@ class _AnakListState extends State<AnakList> {
                             );
                           },
                         ) as DateTime;
-                        if (pickDate != null) {
-                          String formattedDate =
-                              DateFormat.yMd().format(pickDate);
-                          _tglController.text = formattedDate;
-                        }
+                        String formattedDate =
+                            DateFormat.yMd().format(pickDate);
+                        _tglController.text = formattedDate;
                       },
                       icon: const Icon(Icons.calendar_month),
                     ),

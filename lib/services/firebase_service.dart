@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseService with ChangeNotifier {
@@ -35,6 +36,28 @@ class FirebaseService with ChangeNotifier {
     await _googleSignIn.signOut();
     await _auth.signOut();
     return true;
+  }
+
+  Future<UserCredential?> signInWithGoogleWebsite() async {
+    try {
+      // Create a new provider
+      GoogleAuthProvider googleProvider = GoogleAuthProvider();
+
+      googleProvider
+          .addScope('https://www.googleapis.com/auth/contacts.readonly');
+      googleProvider.setCustomParameters({'login_hint': 'user@example.com'});
+
+      // Once signed in, return the UserCredential
+      return await _auth.signInWithPopup(googleProvider);
+      // Or use signInWithRedirect
+      // return await FirebaseAuth.instance.signInWithRedirect(googleProvider);
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+      rethrow;
+    } catch (e) {
+      print(e);
+    }
+    return null;
   }
 
   Future<String?> signInWithEmailAndPassword(
@@ -78,5 +101,13 @@ class FirebaseService with ChangeNotifier {
 
   Future<User?> getCurrentUser() async {
     return _auth.currentUser;
+  }
+
+  Future<String?> postDetailsToFirestore(
+      String userEmail, String userName) async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    var user = _auth.currentUser;
+    CollectionReference ref = firebaseFirestore.collection("users");
+    ref.doc(user!.uid).set({'email': userEmail, 'name': userName});
   }
 }
