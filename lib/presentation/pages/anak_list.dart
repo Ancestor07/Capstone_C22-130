@@ -13,7 +13,6 @@ class AnakList extends StatefulWidget {
   const AnakList({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _AnakListState createState() => _AnakListState();
 }
 
@@ -24,7 +23,6 @@ final TextEditingController _sekolahController = TextEditingController();
 final TextEditingController _tglController = TextEditingController();
 
 class _AnakListState extends State<AnakList> {
-  final dataAnak = _anak.where('parentId', isEqualTo: userid).get();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +31,7 @@ class _AnakListState extends State<AnakList> {
           elevation: 0.5,
         ),
         body: StreamBuilder(
-          stream: Stream.fromFuture(dataAnak),
+          stream: _anak.where('parentId', isEqualTo: userid).snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
             if (streamSnapshot.hasData) {
               return ListView.builder(

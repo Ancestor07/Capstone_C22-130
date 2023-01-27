@@ -38,6 +38,8 @@ class _DashboardState extends State<Dashboard> {
       SystemUiOverlayStyle.light.copyWith(statusBarColor: kDeepBlue),
     );
 
+    final userid = FirebaseAuth.instance.currentUser!.uid;
+
     return StreamBuilder(
       stream: service.onAuthStateChanged,
       builder: (context, AsyncSnapshot<User?> snapshot) {
@@ -142,7 +144,9 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     SizedBox(
                       child: StreamBuilder(
-                        stream: _anak.snapshots(),
+                        stream: _anak
+                            .where('parentId', isEqualTo: userid)
+                            .snapshots(),
                         builder: (context,
                             AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           if (streamSnapshot.hasData) {
@@ -162,9 +166,35 @@ class _DashboardState extends State<Dashboard> {
                               ],
                             );
                           }
-                          return const Center();
+                          return const Center(
+                              //child: CircularProgressIndicator(),
+                              );
                         },
                       ),
+                      // StreamBuilder(
+                      //   stream: _anak.snapshots(),
+                      //   builder: (context,
+                      //       AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                      //     if (streamSnapshot.hasData) {
+                      //       return Column(
+                      //         children: [
+                      //           ListView.builder(
+                      //             physics: const BouncingScrollPhysics(),
+                      //             itemCount: streamSnapshot.data!.docs.length,
+                      //             shrinkWrap: true,
+                      //             itemBuilder: (context, index) {
+                      //               final DocumentSnapshot documentSnapshot =
+                      //                   streamSnapshot.data!.docs[index];
+                      //               return CardConstAnak(
+                      //                   documentSnapshot: documentSnapshot);
+                      //             },
+                      //           ),
+                      //         ],
+                      //       );
+                      //     }
+                      //     return const Center();
+                      //   },
+                      // ),
                     ),
                     const SizedBox(
                       height: 20.0,
