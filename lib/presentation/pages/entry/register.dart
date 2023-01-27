@@ -27,6 +27,7 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController namaController = TextEditingController();
+  String valueDropDown = '';
   bool _isLoading = false;
 
   @override

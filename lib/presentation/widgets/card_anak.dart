@@ -15,8 +15,7 @@ class CardAnak extends StatefulWidget {
 }
 
 class _CardAnakState extends State<CardAnak> {
-  final CollectionReference _anak =
-      FirebaseFirestore.instance.collection('anak');
+  final _anak = FirebaseFirestore.instance.collection('anak');
   final userid = FirebaseAuth.instance.currentUser!.uid;
 
   @override

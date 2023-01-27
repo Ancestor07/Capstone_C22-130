@@ -64,6 +64,7 @@ class FirebaseService with ChangeNotifier {
         email: userEmail,
         password: userPassword,
       );
+      //postDetailsToFirestore(userEmail, userName, userRole);
       return credential.user!.uid.toString();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -81,10 +82,12 @@ class FirebaseService with ChangeNotifier {
   }
 
   Future<String?> postDetailsToFirestore(
-      String userEmail, String userName) async {
+      String userEmail, String userName, String userRole) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     var user = _auth.currentUser;
     CollectionReference ref = firebaseFirestore.collection("users");
-    ref.doc(user!.uid).set({'email': userEmail, 'name': userName});
+    ref
+        .doc(user!.uid)
+        .set({'email': userEmail, 'name': userName, 'role': userRole});
   }
 }

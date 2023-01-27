@@ -22,11 +22,12 @@ final TextEditingController _sekolahController = TextEditingController();
 final TextEditingController _tglController = TextEditingController();
 
 class _AnakListState extends State<AnakList> {
+  final dataAnak = _anak.where('parentId', isEqualTo: userid).get();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: StreamBuilder(
-          stream: _anak.snapshots(),
+          stream: Stream.fromFuture(dataAnak),
           builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
             if (streamSnapshot.hasData) {
               return ListView.builder(
