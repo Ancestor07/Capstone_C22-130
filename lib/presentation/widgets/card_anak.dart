@@ -1,4 +1,4 @@
-// ignore_for_file: empty_catches
+// ignore_for_file: unnecessary_null_comparison, use_build_context_synchronously, empty_catches
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
